@@ -1,0 +1,27 @@
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.movie-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.movie-row {
+  border: solid 1px wheat;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.rating-list {
+  display: flex;
+  flex-direction: column;
+  width: 800px !important;
+}
