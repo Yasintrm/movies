@@ -4,12 +4,13 @@ import sciFiJson from "../data/sci-fi.json";
 import { MovieItem } from './types';
 import { useMemo, useState } from 'react';
 import RatingList from './features/RatingList';
+import { Tab } from './components/tab/Tab';
 
 function buildList(obj: Record<string, MovieItem[]>) {
   return Object.values(obj).reduce((arr, movieArr) => {
     arr.push(...movieArr);
     return arr;
-}, [] as MovieItem[]);
+  }, [] as MovieItem[]);
 }
 
 function App() {
@@ -17,15 +18,27 @@ function App() {
   const sciFiMovieList = useMemo(() => buildList(sciFiJson), []);
   const [type, setType] = useState("horror");
 
-  const selectedList = type === "horror" ? horrorMovieList : sciFiMovieList;
-
   return (
     <div className="App">
-      <div>
-        <input type={"radio"} onChange={() => setType("horror")} name="type" checked={type === "horror"} value="horror"/> Horror
-        <input type={"radio"} onChange={() => setType("scifi")} name="type" checked={type === "scifi"} value="scifi"/> Sci Fi
-      </div>
-      <RatingList list={selectedList}></RatingList>
+      <Tab selectedTab={type}>
+        <Tab.Item value='horror' onClick={() => setType("horror")}>
+          <Tab.Item.Title>Horror</Tab.Item.Title>
+          <Tab.Item.Body>
+            <RatingList list={horrorMovieList}></RatingList>
+          </Tab.Item.Body>
+
+        </Tab.Item>
+
+        <Tab.Item value='scifi' onClick={() => setType("scifi")}>
+          <Tab.Item.Title>Sci-Fi</Tab.Item.Title>
+          <Tab.Item.Body>
+            <RatingList list={sciFiMovieList}></RatingList>
+          </Tab.Item.Body>
+
+        </Tab.Item>
+
+      </Tab>
+
     </div>
   )
 }
